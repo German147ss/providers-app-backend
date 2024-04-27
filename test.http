@@ -1,0 +1,54 @@
+//To use the extension, install in vscode: humao.rest-client
+
+// set the base url
+@me = http://127.0.0.1:8080
+
+
+
+### Proveedores
+
+POST  {{me}}/proveedores
+Content-Type: application/json
+Accept:application/json, text/plain, */*
+Accept-Encoding:gzip, deflate, br
+Accept-Language:en-US,en
+Connection:keep-alive
+
+{
+  "nombre": "Proveedor Uno",
+  "direccion": "123 Calle Ficticia",
+  "telefono": "123-456-7890",
+  "dias_entrega": [1, 3, 5],
+  "horario_entrega": "14:00",
+  "dia_limite_pedido": 2,
+  "hora_limite_pedido": "18:00"
+}
+
+
+### Productos
+
+POST  {{me}}/productos_proveedor
+Content-Type: application/json
+Accept:application/json, text/plain, */*
+Accept-Encoding:gzip, deflate, br
+Accept-Language:en-US,en
+Connection:keep-alive
+
+{
+  "nombre": "Producto A",
+  "bulto": 50,
+  "costo_x_cantidad": 100.00,
+  "costo_por_unidad": 2.00,
+  "precio_venta": 3.50,
+  "id_proveedor": 1
+}
+
+### Obtener todos los proveedores
+
+GET  {{me}}/proveedores
+Accept: application/json
+
+### Obtener todos los productos de proveedores
+
+GET  {{me}}/productos_proveedor
+Accept: application/json
