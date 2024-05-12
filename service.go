@@ -37,7 +37,7 @@ func setupDatabase() error {
 	dbname := os.Getenv("DB_NAME")
 
 	// Nota el uso de = en lugar de := para asignar directamente a la variable global DB
-	DB, err = sql.Open("postgres", fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+	DB, err = sql.Open("postgres", fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		host, port, user, password, dbname))
 	if err != nil {
 		fmt.Println("Error al conectar a la base de datos:", err)
