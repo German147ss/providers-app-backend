@@ -3,24 +3,40 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"log"
+	"os"
 
+	"github.com/joho/godotenv"
 	"github.com/lib/pq"
 	_ "github.com/lib/pq"
 )
 
-const (
+/* const (
 	host     = "localhost"
 	port     = 5431 // El puerto por defecto para PostgreSQL
 	user     = "alfred"
 	password = "4lfr3d"
 	dbname   = "labora"
-)
+) */
 
 var DB *sql.DB
 
 func setupDatabase() error {
-	// Nota el uso de = en lugar de := para asignar directamente a la variable global DB
+
 	var err error
+	err = godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	//get db credentials from env
+	host := os.Getenv("DB_HOST")
+	port := os.Getenv("DB_PORT")
+	user := os.Getenv("DB_USER")
+	password := os.Getenv("DB_PASSWORD")
+	dbname := os.Getenv("DB_NAME")
+
+	// Nota el uso de = en lugar de := para asignar directamente a la variable global DB
 	DB, err = sql.Open("postgres", fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
 		host, port, user, password, dbname))
 	if err != nil {
