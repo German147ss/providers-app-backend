@@ -118,3 +118,43 @@ func getProductosProveedores() ([]ProductoProveedor, error) {
 
 	return productos, nil
 }
+
+func getProductosProveedoresExtendido() ([]ProductoProveedorUI, error) {
+	rows, err := DB.Query(`SELECT 
+    pp.id_producto_proveedor, 
+    pp.nombre AS nombre_producto, 
+    pp.bulto, 
+    pp.costo_x_cantidad, 
+    pp.costo_por_unidad, 
+    pp.precio_venta, 
+    pp.id_proveedor, 
+    p.nombre AS nombre_proveedor, 
+    p.hora_limite_pedido, 
+    p.dia_limite_pedido 
+FROM 
+    productos_proveedor AS pp
+JOIN 
+    proveedores AS p 
+ON 
+    pp.id_proveedor = p.id_proveedor;
+`)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var productos []ProductoProveedorUI
+	for rows.Next() {
+		var pp ProductoProveedorUI
+		if err := rows.Scan(&pp.ID, &pp.Nombre, &pp.Bulto, &pp.CostoXCantidad, &pp.CostoPorUnidad, &pp.PrecioVenta, &pp.ProveedorNombre, &pp.HoraLimitePedido, &pp.DiaLimitePedido, &pp.IDProveedor); err != nil {
+			return nil, err
+		}
+		productos = append(productos, pp)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return productos, nil
+}

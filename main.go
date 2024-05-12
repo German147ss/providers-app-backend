@@ -20,6 +20,7 @@ func main() {
 	mux.HandleFunc("POST /productos_proveedor", insertProductoProveedorHandler)
 	mux.HandleFunc("GET /proveedores", proveedoresHandler)
 	mux.HandleFunc("GET /productos_proveedor", productosProveedorHandler)
+	mux.HandleFunc("GET /productos_proveedor_extendido", productosProveedorExtendidoHandler)
 
 	// Configura el middleware de CORS
 	handler := cors.New(cors.Options{

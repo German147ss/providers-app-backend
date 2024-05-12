@@ -15,8 +15,15 @@ type ProductoProveedor struct {
 	ID             int     `json:"id,omitempty"`
 	Nombre         string  `json:"nombre"`
 	Bulto          int     `json:"bulto"`
-	CostoXCantidad float64 `json:"costo_x_cantidad"`
+	CostoXCantidad float64 `json:"costo_por_cantidad"`
 	CostoPorUnidad float64 `json:"costo_por_unidad"`
 	PrecioVenta    float64 `json:"precio_venta"`
 	IDProveedor    int     `json:"id_proveedor"`
+}
+
+type ProductoProveedorUI struct {
+	ProductoProveedor
+	ProveedorNombre  string `json:"nombre_proveedor"`
+	HoraLimitePedido string `json:"hora_limite_pedido"`
+	DiaLimitePedido  string `json:"dia_limite_pedido"`
 }

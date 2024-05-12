@@ -66,3 +66,15 @@ func productosProveedorHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(productos)
 }
+
+func productosProveedorExtendidoHandler(w http.ResponseWriter, r *http.Request) {
+	productos, err := getProductosProveedoresExtendido()
+	if err != nil {
+		fmt.Println("Error al obtener productos de proveedores:", err)
+		http.Error(w, "Error al obtener productos de proveedores", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(productos)
+}
